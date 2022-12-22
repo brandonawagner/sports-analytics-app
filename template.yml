@@ -37,7 +37,7 @@ Resources:
     Properties:
       CodeUri: ./
       Handler: src/handlers/main.lambda_handler
-      Runtime: node14.x
+      Runtime: python3.9
       MemorySize: 128
       Timeout: 60
       Description: A Lambda function that returns a JSON string.
