@@ -31,16 +31,16 @@ Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  # This is a Lambda function config associated with the source code: hello-from-lambda.js
+  # This is a Lambda function config associated with the source code: main.py
   helloFromLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./
-      Handler: src/handlers/hello-from-lambda.helloFromLambdaHandler
-      Runtime: nodejs14.x
+      Handler: src/handlers/main.lambda_handler
+      Runtime: python3.9
       MemorySize: 128
       Timeout: 60
-      Description: A Lambda function that returns a static string.
+      Description: A Lambda function that returns a JSON string.
       Policies:
-        # Give Lambda basic execution Permission to the helloFromLambda
+        # Give Lambda basic execution Permission to the lambda_handler
         - AWSLambdaBasicExecutionRole
