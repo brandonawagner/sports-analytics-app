@@ -1,5 +1,10 @@
 version: 0.2
 phases:
+  install:
+    commands:
+      - pip install pandas
+      - pip install beautifulsoup4
+      - pip install pyarrow
   build:
     commands:
       # Use AWS SAM to package the application by using AWS CloudFormation
