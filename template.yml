@@ -32,7 +32,7 @@ Resources:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
   # This is a Lambda function config associated with the source code: main.py
-  helloFromLambdaFunction:
+  sportsAnalyticsFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./
@@ -40,7 +40,7 @@ Resources:
       Runtime: python3.9
       MemorySize: 128
       Timeout: 60
-      Description: A Lambda function that returns a JSON string.
+      Description: A Lambda function that uploads csv files as parquet file to an S3 bucket.
       Policies:
         # Give Lambda basic execution Permission to the lambda_handler
         - AWSLambdaBasicExecutionRole
