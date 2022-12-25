@@ -4,7 +4,7 @@ phases:
     commands:
       - pip install pandas
       - pip install beautifulsoup4
-      - pip install pyarrow
+      - pip install fastparquet
   build:
     commands:
       # Use AWS SAM to package the application by using AWS CloudFormation
