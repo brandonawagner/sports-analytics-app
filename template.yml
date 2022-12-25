@@ -5,7 +5,7 @@
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  Start from scratch starter project
+  Sports analytics
 
 # Transform section specifies one or more macros that AWS CloudFormation uses to process your template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
@@ -39,7 +39,7 @@ Resources:
       Handler: src/handlers/main.lambda_handler
       Runtime: python3.9
       MemorySize: 128
-      Timeout: 60
+      Timeout: 600
       Description: A Lambda function that uploads csv files as parquet file to an S3 bucket.
       Policies:
         # Give Lambda basic execution Permission to the lambda_handler

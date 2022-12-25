@@ -1,27 +1,21 @@
-# Start from scratch starter project
+# Sports Analytics App
 
-This project contains source code and supporting files for the serverless application that you created in the AWS Lambda console. You can update your application at any time by committing and pushing changes to your AWS CodeCommit or GitHub repository.
+This project contains source code and supporting files 
+for analysis of historical American sports data. This serverless
+application extracts from the Sports Statistics data set, loads into
+an S3 bucket and transforms it to load into a SQL database.
+This data is then displayed.
 
 This project includes the following files and folders:
 
 - src - Code for the application's Lambda function.
-- \_\_tests__ - Unit tests for the application code.
 - template.yml - A SAM template that defines the application's AWS resources.
 - buildspec.yml -  A build specification file that tells AWS CodeBuild how to create a deployment package for the function.
 
-Your Lambda application includes two AWS CloudFormation stacks. The first stack creates the pipeline that builds and deploys your application.
+This Lambda application includes two AWS CloudFormation stacks. 
+The first stack creates the pipeline that builds and deploys the application.
 
-For a full list of possible operations, see the [AWS Lambda Applications documentation](https://docs.aws.amazon.com/lambda/latest/dg/deploying-lambda-apps.html).
-
-## Try the application out
-
-1. Go to the Lambda console.
-2. Select **Applications** and select the one you created.
-3. Select **helloFromLambdaFunction** in the **Resources** table.
-4. Create a test event with the default settings. (Select **Select a test event** -> select **Configure test events** -> type in **Event name** -> select **Create**)
-5. Select **Test** and you can see the result.
-
-## Add a resource to your application
+## Add a resource to this application
 
 The application template uses the AWS Serverless Application Model (AWS SAM) to define application resources. AWS SAM is an extension of AWS CloudFormation with a simpler syntax for configuring common serverless application resources, such as functions, triggers, and APIs. For resources that aren't included in the [AWS SAM specification](https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md), you can use the standard [AWS CloudFormation resource types](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
 
