@@ -41,7 +41,7 @@ def convert_and_upload(host_name, url, bucket_name):
             df = pd.read_csv(csv)
 
             # TODO manipulate the dataframe to add the year and conference
-            parquet_data = df.to_parquet(engine='fastparquet')
+            parquet_data = df.to_parquet()
 
             lt_array = link.split('/')
 
