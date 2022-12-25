@@ -27,7 +27,7 @@ def convert_and_upload(host_name, url, bucket_name):
 
     # Set up the S3 client
     s3 = boto3.client('s3')
-    s3.create_bucket(Bucket='bw-sports-analytics-data')
+    s3.create_bucket(Bucket=bucket_name)
 
     # Iterate through the anchor tags but only do work on .CSVs
     for alink_tag in alink_tags:
@@ -41,7 +41,7 @@ def convert_and_upload(host_name, url, bucket_name):
             df = pd.read_csv(csv)
 
             # TODO manipulate the dataframe to add the year and conference
-            parquet_data = df.to_parquet()
+            parquet_data = df.to_parquet(engine='fastparquet')
 
             lt_array = link.split('/')
 
@@ -52,7 +52,7 @@ def convert_and_upload(host_name, url, bucket_name):
             file_name = file_csv[0:-4] + '-' + conf + '-' + year + ".parquet"
 
             s = boto3.resource('s3')
-            b = s.Bucket(name='bw-sports-analytics-data')
+            b = s.Bucket(name=bucket_name)
             b.upload_fileobj(io.BytesIO(parquet_data), file_name)
 
 
