@@ -1,4 +1,4 @@
 beautifulsoup4~=4.11.1
 boto3~=1.26.36
 pandas~=1.5.2
-pyarrow~=10.0.1
+--no-binary pyarrow
