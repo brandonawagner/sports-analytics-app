@@ -4,7 +4,8 @@ phases:
     runtime-versions:
       python: 3.9
     commands:
-      - apt-get install cmake
+      - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - brew install cmake
       - pip install -r requirements.txt
   build:
     commands:
