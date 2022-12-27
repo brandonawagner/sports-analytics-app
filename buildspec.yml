@@ -4,6 +4,8 @@ phases:
     runtime-versions:
       python: 3.9
     commands:
+      - apt-get update -y
+      - apt-get update
       - apt-get install cmake
       - pip install -r requirements.txt
   build:
