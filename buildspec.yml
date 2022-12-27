@@ -4,9 +4,8 @@ phases:
     runtime-versions:
       python: 3.9
     commands:
-      - sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      - export PATH="/usr/local/bin:$PATH"
-      - brew install cmake
+      - apt update
+      - apt install cmake
       - pip install -r requirements.txt
   build:
     commands:
