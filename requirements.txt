@@ -1,3 +1,4 @@
+cmake
 beautifulsoup4~=4.11.1
 boto3~=1.26.36
 pandas
