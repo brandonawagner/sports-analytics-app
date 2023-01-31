@@ -1,5 +1,7 @@
 cmake
-beautifulsoup4~=4.11.1
-boto3~=1.26.41
+beautifulsoup4
+boto3
 pandas
 pyarrow
+psycopg2-binary
+python-dotenv

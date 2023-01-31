@@ -109,10 +109,10 @@ To use the AWS SAM CLI with this sample, you need the following tools:
 Build your application with the `sam build` command.
 
 ```bash
-my-application$ sam build -m package.json
+my-application$ sam build
 ```
 
-The AWS SAM CLI installs dependencies that are defined in `package.json`, creates a deployment package, and saves its contents in the `.aws-sam/build` folder.
+The AWS SAM CLI installs dependencies that are defined in `requirements.txt`, creates a deployment package, and saves its contents in the `.aws-sam/build` folder.
 
 Run functions locally and invoke them with the `sam local invoke` command.
 
@@ -120,18 +120,6 @@ Run functions locally and invoke them with the `sam local invoke` command.
 my-application$ sam local invoke helloFromLambdaFunction --no-event
 ```
 
-## Unit tests
-
-Requirements:
-
-* Node.js - [Install Node.js 14.x](https://nodejs.org/en/), including the npm package management tool.
-
-Tests are defined in the \_\_tests__ folder in this project. Use `npm` to install the [Jest test framework](https://jestjs.io/) and run unit tests.
-
-```bash
-my-application$ npm install
-my-application$ npm run test
-```
 
 ## Resources
 

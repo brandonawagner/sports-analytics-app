@@ -1,0 +1,31 @@
+aws codebuild start-build --project-name sports-analytics-app --source-version arn:aws:s3:::aws-us-east-1-059070785183-sports-analytics-app-pipe/sports-analytics-app/sports-ana/8ZpkWL1 \
+--artifacts-override '{"type": "CODEPIPELINE", "location": "arn:aws:s3:::aws-us-east-1-059070785183-sports-analytics-app-pipe/sports-analytics-app/sports-ana/ZkPi6Th","namespaceType": "BUILD_ID", "name": "none"}'
+
+    # Disable certificate verification
+    # context = ssl.create_default_context()
+    # context.check_hostname = False
+    # context.verify_mode = ssl.CERT_NONE
+
+something weird in schemas
+
+kicking
+HIVE_BAD_DATA: Field lg's type INT64 kicking-independents-2018.parquet is incompatible with type varchar defined in table schema
+kickoffreturn
+ HIVE_BAD_DATA: Field yds's type INT64 in parquet file
+ s3://bw-sports-analytics-data/sports-statistics.com/kickoffreturn/kickoff-return-mountainwest-2018.parquet is incompatible with type varchar defined in table schema
+passing
+HIVE_BAD_DATA: Field sack's type INT64 in parquet file
+s3://bw-sports-analytics-data/sports-statistics.com/passing/passing-american-2016.parquet is incompatible with type varchar defined in table schema
+puntreturn
+HIVE_BAD_DATA: Field fc's type INT64 in parquet file
+s3://bw-sports-analytics-data/sports-statistics.com/puntreturn/punt-return-mac-2017.parquet is incompatible with type varchar defined in table schema
+receiving
+HIVE_BAD_DATA: Field yds's type INT64 in parquet file
+s3://bw-sports-analytics-data/sports-statistics.com/receiving/receiving-bigten-2010.parquet is incompatible with type varchar defined in table schema
+
+# df.loc[df['col1'] < 2, 'col1'] = 0
+# Example Vectorication update all col1 where value < 2 to = 0
+# y axis = axis 0. x axis = axis 1
+# series are 1-d arrays on axis 0. A dataframe is a dict of series
+# Usually, in Python, one-dimensional structures are displayed as a row of values.
+# On the contrary, Series is displayed as a column of values.

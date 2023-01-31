@@ -6,7 +6,8 @@ import boto3
 import pandas as pd
 import urllib.request
 from bs4 import BeautifulSoup
-from src import constant as const
+from dotenv import load_dotenv
+import os
 
 
 def convert_and_upload(host_name, url, bucket_name):
@@ -19,6 +20,9 @@ def convert_and_upload(host_name, url, bucket_name):
     :param url: The URL path from where we should extract CSV files
     :return: nothing
     """
+
+    # get environment variables
+    load_dotenv(os.path.abspath('../../.env'))
 
     html = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(html, 'html.parser')
@@ -68,15 +72,15 @@ def convert_and_upload(host_name, url, bucket_name):
 
 
 def lambda_handler(event, context):
-    convert_and_upload(const.SPORTS_STATISTICS_HOST_URI,
-                       const.SPORTS_STATISTICS_CFB_DATASET_RELATIVE_PATH,
-                       const.AWS_BUCKET_NAME)
+    convert_and_upload(os.environ['SPORTS_STATISTICS_HOST_URI'],
+                       os.environ['SPORTS_STATISTICS_CFB_DATASET_RELATIVE_PATH'],
+                       os.environ['S3_RAW_BUCKET_NAME'])
     return {
         'message': 'upload complete'
     }
 
 
 if __name__ == "__main__":
-    convert_and_upload(const.SPORTS_STATISTICS_HOST_URI,
-                       const.SPORTS_STATISTICS_CFB_DATASET_RELATIVE_PATH,
-                       const.AWS_BUCKET_NAME)
+    convert_and_upload(os.environ['SPORTS_STATISTICS_HOST_URI'],
+                       os.environ['SPORTS_STATISTICS_CFB_DATASET_RELATIVE_PATH'],
+                       os.environ['S3_RAW_BUCKET_NAME'])

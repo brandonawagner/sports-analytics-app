@@ -31,16 +31,29 @@ Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  # This is a Lambda function config associated with the source code: main.py
+  # This is a Lambda function config associated with the source code: upload_s3.py
   sportsAnalyticsFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./
-      Handler: src/handlers/main.lambda_handler
+      Handler: src/handlers/upload_s3.lambda_handler
       Runtime: python3.9
       MemorySize: 128
       Timeout: 600
       Description: A Lambda function that uploads csv files as parquet file to an S3 bucket.
+      Policies:
+        # Give Lambda basic execution Permission to the lambda_handler
+        - AWSLambdaBasicExecutionRole
+
+  sportsAnalyticsToPostgresFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: src/handlers/upload_postgres.lambda_handler
+      Runtime: python3.9
+      MemorySize: 128
+      Timeout: 600
+      Description: A Lambda function that queries AWS Athena and loads data into Postgres Database.
       Policies:
         # Give Lambda basic execution Permission to the lambda_handler
         - AWSLambdaBasicExecutionRole
