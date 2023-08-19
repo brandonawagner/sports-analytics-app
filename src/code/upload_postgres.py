@@ -754,7 +754,8 @@ def load_kicking(cur, rows):
                                            year))
 
 
-def lambda_handler(event, context):
+# def lambda_handler(event, context):
+def upload_postgres(event):
     stat_type = event['stat_type']
 
     # get environment variables
@@ -882,8 +883,7 @@ def lambda_handler(event, context):
     }
 
 
-if __name__ == "__main__":
-
+def load_all_tables():
     events = ('PUNTING',
               'KICKING',
               'KICKOFF',
@@ -900,4 +900,11 @@ if __name__ == "__main__":
             'stat_type': i
         }
 
-        lambda_handler(my_event, '')
+        upload_postgres(my_event)
+
+    print('Upload to Postgres complete')
+    # lambda_handler(my_event, '')
+
+
+if __name__ == "__main__":
+    load_all_tables()

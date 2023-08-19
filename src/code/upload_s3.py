@@ -41,7 +41,6 @@ def convert_and_upload(host_name, url, bucket_name):
         link = alink_tag.get('href')
 
         if link[-4:] == '.csv':
-
             # combine the host URL with the relative link path to get the full CSV path
             csv = host_name + link
 
@@ -71,16 +70,9 @@ def convert_and_upload(host_name, url, bucket_name):
             bucket.upload_fileobj(io.BytesIO(parquet_data), host_folder + sub_folder + file_name)
 
 
-def lambda_handler(event, context):
-    convert_and_upload(os.environ['SPORTS_STATISTICS_HOST_URI'],
-                       os.environ['SPORTS_STATISTICS_CFB_DATASET_RELATIVE_PATH'],
-                       os.environ['S3_RAW_BUCKET_NAME'])
-    return {
-        'message': 'upload complete'
-    }
-
-
 if __name__ == "__main__":
     convert_and_upload(os.environ['SPORTS_STATISTICS_HOST_URI'],
                        os.environ['SPORTS_STATISTICS_CFB_DATASET_RELATIVE_PATH'],
                        os.environ['S3_RAW_BUCKET_NAME'])
+
+    print('Upload to S3 complete')
