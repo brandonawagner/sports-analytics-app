@@ -3,14 +3,13 @@
 This project contains source code and supporting files 
 for analysis of historical American sports data. 
 
-This serverless
-application extracts from the Sports Statistics data set, loads into
-an S3 bucket and transforms it to load into a PostgreSQL database.
-This data is then displayed using Metabase
+This application 
+
+1. **Extracts** from the Sports Statistics data set into an S3 bucket
+2. **Loads** and stores the raw data into AWS Athena
+3. **Transforms** and **Loads** the data into a PostgreSQL database.
+4. Utilizes Metabase for the querying and data analysis UI
 
 The project includes the following files and folders:
-
-- `src` - Code for the application's Lambda functions.
-- `template.yml` - A SAM template that defines the application's AWS resources.
-- `buildspec.yml` -  A build specification file that tells AWS CodeBuild how to create a deployment package for the function.
+- `src/code` - Code for the application ELT...L
 
