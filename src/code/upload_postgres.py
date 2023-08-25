@@ -1,5 +1,5 @@
 """
- A Lambda function that uploads raw database info into modeled postgres db
+ A function that uploads raw database info into modeled postgres db
 """
 import psycopg2 as p
 import boto3
@@ -761,8 +761,14 @@ def upload_postgres(event):
     # get environment variables
     load_dotenv(os.path.abspath('../../.env'))
 
+    # Access environment variables using os.environ
+    aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
+    aws_secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
     # Create an Athena client
-    athena_client = boto3.client('athena')
+    athena_client = boto3.client('athena',
+                                 aws_access_key_id=aws_access_key,
+                                 aws_secret_access_key=aws_secret_key)
 
     # Set the name of the S3 bucket where the query results will be stored
     s3_bucket_query_results = os.environ['S3_BUCKET_QUERY_RESULTS']

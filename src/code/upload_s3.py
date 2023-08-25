@@ -1,5 +1,5 @@
 """
- A Lambda function that uploads an extracts, transforms and uploads files to S3
+ A function that uploads an extracts, transforms and uploads files to S3
 """
 import io
 import boto3
@@ -21,9 +21,6 @@ def convert_and_upload(host_name, url, bucket_name):
     :return: nothing
     """
 
-    # get environment variables
-    load_dotenv(os.path.abspath('../../.env'))
-
     html = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(html, 'html.parser')
     host_folder = host_name[8:]
@@ -31,8 +28,18 @@ def convert_and_upload(host_name, url, bucket_name):
     # Find all the anchor tags in the HTML
     alink_tags = soup.find_all('a', href=True)
 
+    # get environment variables
+    load_dotenv(os.path.abspath('../../.env'))
+
+    # Access environment variables using os.environ
+    aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
+    aws_secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
     # Set up the S3 client, will create the bucket if it doesn't exist
-    s3_client = boto3.client('s3')
+    s3_client = boto3.client('s3',
+                             region_name='us-east-1',
+                             aws_access_key_id=aws_access_key,
+                             aws_secret_access_key=aws_secret_key)
     s3_client.create_bucket(Bucket=bucket_name)
 
     # Iterate through the anchor tags but only do work on .CSVs
