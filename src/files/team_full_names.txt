@@ -1,0 +1,132 @@
+AF,Air Force,Falcons
+AKR,Akron,Zips
+ALA,Alabama,Crimson Tide
+APST,Appalachian State,Mountaineers
+ARIZ,Arizona,Wildcats
+ARK,Arkansas,Razorbacks
+ARMY,Army,Golden Knights
+ARST,Arkansas State,Red Wolves
+AUB,Auburn,Tigers
+AZST,Arizona State,Sun Devils
+BALL,Ball State,Cardinals
+BAY,Baylor,Bears
+BC,Boston College,Eagles
+BGSU,Boiling Green,Falcons
+BSU,Boise State,Broncos
+BUFF,Buffalo,Bills
+BYU,Brigham Young,Cougars
+CAL,California,Golden Bears
+CCU,Coastal Carolina,Chanticleers
+CHAR,Charlotte,49ers
+CINN,Cincinnati,Bearcats
+CLEM,Clemson,Tigers
+CMU,Central Michigan,Chippewas
+COL,Colorado,Buffaloes
+CONN,UConn,Huskies
+CSU,Colorado State,Rams
+DUKE,Duke,Blue Devils
+ECU,East Carolina,Pirates
+EMU,Eastern Michigan,Eagles
+FAU,Florida Atlantic,Owls
+FIU,Florida International,Panthers
+FLA,Florida,Gators
+FRES,Fresno State,Bulldogs
+FSU,Florida State,Seminoles
+GAST,Georgia State,Panthers
+GSU,Georgia Southern,Eagles
+GT,Georgia Tech,Yellow Jackets
+HAW,Hawaii,Rainbow Warriors
+HOU,Houston,Cougars
+IAST,Iowa State,Cyclones
+IDHO,Idaho,Vandals
+ILL,Illinois,Fighting Illini
+IND,Indiana,Hoosiers
+IOWA,Iowa,Hawkeyes
+KAN,Kansas,Jayhawks
+KENT,Kent State,Golden Flashes
+KSST,Kansas State,Wildcats
+KY,Kentucky,Wildcats
+LA,Louisiana,Ragin Cajuns
+LIB,Liberty,Flames
+LOU,Louisville,Cardinals
+LSU,Louisiana State,Tigers
+LT,Lousiana Tech,Bulldogs
+MASS,UMass,Minutemen
+MD,Maryland,Terrapins
+MEM,Memphis,Tigers
+MIA,Miami,Hurricanes
+MICH,Michigan,Wolverines
+MINN,Minnesota,Golden Gophers
+MIOH,Miami (OH),RedHawks
+MISS,Ole Miss,Rebels
+MIZZ,Missouri,Tigers
+MRSH,Marshall,Thundering Herd
+MSST,Mississippi State,Bulldogs
+MSU,Michigan State,Spartans
+MTSU,Middle Tennessee State,Blue Raiders
+NAVY,Navy,Midshipmen
+NCST,NC State,Wolfpack
+ND,Notre Dame,Fighting Irish
+NEB,Nebraska,Cornhuskers
+NEV,Nevada,Wolf Pack
+NIU,Northern Illinois,Huskies
+NMST,New Mexico State,Aggies
+NW,Northwestern,Wildcats
+ODU,Old Dominion,Monarchs
+OHIO,Ohio,Bobcats
+OKLA,Oklahoma,Sooners
+OKST,Oklahoma State,Cowboys
+ORE,Oregon,Ducks
+ORST,Oregon State,Beavers
+OSU,Ohio State,Buckeyes
+PITT,Pittsburgh,Panthers
+PSU,Penn State,Nittany Lions
+PUR,Purdue,Boilermakers
+RICE,Rice,Owls
+RUT,Rutgers,Scarlet Knights
+SCAR,South Carolina,Gamecocks
+SDSU,San Diego State,Aztecs
+SJSU,San Jose State,Spartans
+SMU,SMU,Mustangs
+STAN,Stanford,Cardinals
+SYR,Syracuse,Orange
+TAMU,Texas A&M,Aggies
+TCU,TCU,Horned Frogs
+TEM,Temple,Owls
+TENN,Tennessee,Volunteers
+TEX,Texas,Longhorns
+TOL,Toledo,Rockets
+TROY,Troy,Trojans
+TTU,Texas Tech,Red Raiders
+TULN,Tulane,Green Wave
+TULS,Tulsa,Golden Hurricane
+TXST,Texas State,Bobcats
+UAB,UAB,Blazers
+UCF,UCF,Knights
+UCLA,UCLA,Bruins
+UGA,Georgia,Bulldogs
+ULL,Louisiana,Ragin Cajuns
+ULM,Lousiana Monroe,Warhawks
+UNC,North Carolina,Tar Heels
+UNLV,UNLV,Rebels
+UNM,New Mexico,Lobos
+UNT,North Texas,Mean Green
+USA,South Alabama,Jaguars
+USC,USC,Trojans
+USF,South Florida,Bulls
+USM,Southern Miss,Golden Eagles
+USU,Utah State,Aggies
+UTAH,Utah,Utes
+UTEP,UTEP,Miners
+UTSA,UTSA,Roadrunners
+UVA,Virginia,Cavaliers
+VAN,Vanderbilt,Commodores
+VT,Virginia Tech,Hokies
+WASH,Washington,Huskies
+WF,Wake Forest,Demon Deacons
+WISC,Wisconsin,Badgers
+WKU,Western Kentucky,Hilltoppers
+WMU,Western Michigan,Broncos
+WSU,Washington State,Cougars
+WVU,West Virginia,Mountaineers
+WYO,Wyoming,Cowboys
