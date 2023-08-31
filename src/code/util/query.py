@@ -269,7 +269,7 @@ INSERT_CONFERENCE = """INSERT INTO conference (abbrev) VALUES (%s)
                        RETURNING *;                    
 """
 
-INSERT_TEAM = """INSERT INTO team (abbrev) VALUES (%s)
+INSERT_TEAM = """INSERT INTO team (abbrev, entity_name, mascot) VALUES (%s,%s,%s)
                  ON CONFLICT ON CONSTRAINT team_unique_abbrev DO NOTHING
                  RETURNING *;
 """

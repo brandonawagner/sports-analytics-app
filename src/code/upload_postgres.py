@@ -8,6 +8,10 @@ import util.query as q
 import time
 import os
 from dotenv import load_dotenv
+import csv
+
+# global variables
+matrix_team_names = []
 
 
 class StatType(Enum):
@@ -228,6 +232,22 @@ def split_percentage(value):
     return value_list
 
 
+def load_team_names():
+    with open('../files/team_full_names.csv', 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+
+        for row in csv_reader:
+            # 'row' is a list representing a row of CSV data
+            matrix_team_names.append(row)
+
+
+def get_team_names(abbrev):
+    for row in range(len(matrix_team_names)):
+        if matrix_team_names[row][0] == abbrev:
+            return matrix_team_names[row]
+    return None;
+
+
 def load_base_tables(cur, player, team, conference, year):
     # CONFERENCE
     # Each conference likely inserted from first stat file
@@ -272,7 +292,11 @@ def load_base_tables(cur, player, team, conference, year):
     row_team = cur.fetchall()
     if len(row_team) == 0:
 
-        cur.execute(q.INSERT_TEAM, (team,))
+        matrix_team = get_team_names(team)
+        entity_name = matrix_team[1]
+        mascot = matrix_team[2]
+
+        cur.execute(q.INSERT_TEAM, (team, entity_name, mascot))
 
         row_team = cur.fetchall()
         if len(row_team) == 0:
@@ -754,9 +778,9 @@ def load_kicking(cur, rows):
                                            year))
 
 
-# def lambda_handler(event, context):
 def upload_postgres(event):
-    stat_type = event['stat_type']
+    # load team name decodes
+    load_team_names()
 
     # get environment variables
     load_dotenv(os.path.abspath('../../.env'))
@@ -774,6 +798,7 @@ def upload_postgres(event):
     s3_bucket_query_results = os.environ['S3_BUCKET_QUERY_RESULTS']
 
     # Get the raw database and appropriate table
+    stat_type = event['stat_type']
     raw_database_name = os.environ['ATHENA_RAW_DATABASE_NAME']
     table_name = 'ss-' + stat_type
 
