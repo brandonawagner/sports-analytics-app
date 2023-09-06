@@ -9,6 +9,7 @@ import time
 import os
 from dotenv import load_dotenv
 import csv
+import argparse
 
 # global variables
 matrix_team_names = []
@@ -937,5 +938,25 @@ def load_all_tables():
     # lambda_handler(my_event, '')
 
 
+def load_one_table(table):
+    my_event = {
+        'stat_type': table
+    }
+    upload_postgres(my_event)
+
+    print(f'Upload of table {table} to Postgres is complete')
+
+
 if __name__ == "__main__":
-    load_all_tables()
+
+    parser = argparse.ArgumentParser(
+        prog='upload_postgres',
+        description='Load S3 data into Postgres')
+    parser.add_argument('-a', '--all', help="load all tables", action="store_true")
+    parser.add_argument('-t', '--table', help="name of database table to load")
+
+    args = parser.parse_args()
+    if args.all:
+        load_all_tables()
+    elif args.table is not None:
+        load_one_table(args.table)
