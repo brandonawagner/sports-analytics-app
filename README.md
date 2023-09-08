@@ -21,12 +21,15 @@ The project includes the following files and folders:
 - run `python3 -r requirement` from the terminal to install dependencies
 ### Run Instructions (from root directory)
 
-- Full end-to-end process (extract/load into S3, transform/load into Postgres)
+- Full end-to-end process (extract/load into S3, transform/load all Postgres tables)
   - run `python3 src/code/main.py`
-- **Only** run extract/load into S3
+- **Only** extract/load into S3
   - run `python3 src/code/upload_s3.py`
-- **Only** run transform/load into Postgres
-  - run `python3 src/code/upload_postgres.py`
+- **Only** transform/load all tables into Postgres
+  - run `python3 src/code/upload_postgres.py -a`
+- **Only** transform/load a specific table into Postgres
+  - run `python3 src/code/upload_postgres.py -t [TABLE NAME]`
+    - See table names in Postgres Table Schema File (TBA)
 
 
 

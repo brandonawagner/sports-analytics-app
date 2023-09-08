@@ -935,7 +935,6 @@ def load_all_tables():
         upload_postgres(my_event)
 
     print('Upload to Postgres complete')
-    # lambda_handler(my_event, '')
 
 
 def load_one_table(table):
