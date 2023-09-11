@@ -29,7 +29,10 @@ def convert_and_upload(host_name, url, bucket_name):
     alink_tags = soup.find_all('a', href=True)
 
     # get environment variables
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     load_dotenv(os.path.abspath('../../.env'))
+
+    print(os.path.abspath('../../.env'))
 
     # Access environment variables using os.environ
     aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -78,8 +81,13 @@ def convert_and_upload(host_name, url, bucket_name):
 
 
 if __name__ == "__main__":
+
+    # get environment variables
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    load_dotenv(os.path.abspath('../../.env'))
+
     convert_and_upload(os.environ['SPORTS_STATISTICS_HOST_URI'],
-                       os.environ['SPORTS_STATISTICS_CFB_DATASET_RELATIVE_PATH'],
+                       os.environ['SPORTS_STATISTICS_CFB_DATASET_FULL_PATH'],
                        os.environ['S3_RAW_BUCKET_NAME'])
 
     print('Upload to S3 complete')

@@ -18,17 +18,17 @@ The project includes the following files and folders:
 - Python 3.11 or greater
 - Mac or Linux environment
 - .env file in the root directory with correct credentials
-- run `python3 -r requirement` from the terminal to install dependencies
+- run `python -r requirement` from the terminal to install dependencies
 ### Run Instructions (from root directory)
 
 - Full end-to-end process (extract/load into S3, transform/load all Postgres tables)
-  - run `python3 src/code/main.py`
+  - run `python src/code/main.py`
 - **Only** extract/load into S3
-  - run `python3 src/code/upload_s3.py`
+  - run `python src/code/upload_s3.py`
 - **Only** transform/load all tables into Postgres
-  - run `python3 src/code/upload_postgres.py -a`
+  - run `python src/code/upload_postgres.py -a`
 - **Only** transform/load a specific table into Postgres
-  - run `python3 src/code/upload_postgres.py -t [TABLE NAME]`
+  - run `python src/code/upload_postgres.py -t [TABLE NAME]`
     - See table names in Postgres Table Schema File (TBA)
 
 

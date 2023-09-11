@@ -234,7 +234,10 @@ def split_percentage(value):
 
 
 def load_team_names():
-    with open('../files/team_full_names.csv', 'r') as csv_file:
+    # Define the paths
+    file_path = os.path.abspath('./src/files/team_full_names.csv')
+
+    with open(file_path, 'r') as csv_file:
         csv_reader = csv.reader(csv_file)
 
         for row in csv_reader:
@@ -286,7 +289,7 @@ def load_base_tables(cur, player, team, conference, year):
         raise Exception("too many conference rows retrieved, rows: " + len(row_conference))
 
     # TEAM
-    # Each conference likely inserted from first stat file
+    # Each team likely inserted from first stat file
     # so try SELECT before INSERT to reduce DB calls
     cur.execute(q.SELECT_TEAM_BY_ABBREV, (team,))
 
@@ -297,6 +300,8 @@ def load_base_tables(cur, player, team, conference, year):
         entity_name = matrix_team[1]
         mascot = matrix_team[2]
 
+        # TODO remove conference_id from team
+        # TODO Add team_to_conference should have year that team is in that conference
         cur.execute(q.INSERT_TEAM, (team, entity_name, mascot))
 
         row_team = cur.fetchall()
@@ -364,8 +369,8 @@ def load_defense(cur, rows):
             solo_tackles = to_int(row['Data'][DefenseColumn.SOLO_TACKLES.value]['VarCharValue'])
             assisted_tackles = to_int(row['Data'][DefenseColumn.ASSISTED_TACKLES.value]['VarCharValue'])
             total_tackles = to_int(row['Data'][DefenseColumn.TOTAL_TACKLES.value]['VarCharValue'])
-            sacks = to_int(row['Data'][DefenseColumn.SACKS.value]['VarCharValue'])
-            sack_yards_lost = to_int(row['Data'][DefenseColumn.SACK_YARDS_LOST.value]['VarCharValue'])
+            sacks = to_float(row['Data'][DefenseColumn.SACKS.value]['VarCharValue'])
+            sack_yards_lost = to_float(row['Data'][DefenseColumn.SACK_YARDS_LOST.value]['VarCharValue'])
             conference = row['Data'][DefenseColumn.CONFERENCE.value]['VarCharValue']
             year = to_int(row['Data'][DefenseColumn.YEAR.value]['VarCharValue'])
 
@@ -784,6 +789,7 @@ def upload_postgres(event):
     load_team_names()
 
     # get environment variables
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     load_dotenv(os.path.abspath('../../.env'))
 
     # Access environment variables using os.environ
@@ -792,6 +798,7 @@ def upload_postgres(event):
 
     # Create an Athena client
     athena_client = boto3.client('athena',
+                                 region_name='us-east-1',
                                  aws_access_key_id=aws_access_key,
                                  aws_secret_access_key=aws_secret_key)
 
@@ -856,7 +863,7 @@ def upload_postgres(event):
             do_loop = False
             print(f"--- LAST {stat_type} PARTITION COMING NEXT ---")
 
-        print(f"--- Start {stat_type} Partition #{str(row_count)} ---")
+        print(f"--- Start {stat_type} Partition #{row_count} ---")
         part_start = time.time()
 
         # Get the list of rows from the query results
@@ -896,8 +903,8 @@ def upload_postgres(event):
             except KeyError:
                 next_token = None
 
-        end_part = (time.time() - part_start)
-        print(f"--- End Partition #{row_count}. Time:{end_part: .2f} seconds ---")
+        part_end = (time.time() - part_start)
+        print(f"--- End {stat_type} Partition #{row_count} --- Time:{part_end: .2f} seconds")
         row_count = row_count + 1
 
     # Commit the changes
@@ -952,10 +959,12 @@ if __name__ == "__main__":
         prog='upload_postgres',
         description='Load S3 data into Postgres')
     parser.add_argument('-a', '--all', help="load all tables", action="store_true")
-    parser.add_argument('-t', '--table', help="name of database table to load")
+    parser.add_argument('-t', '--table', help="load just one table (and base tables based on this table data")
 
     args = parser.parse_args()
     if args.all:
         load_all_tables()
     elif args.table is not None:
         load_one_table(args.table)
+    else:
+        print('Must choose and argument, see upload_postgres.py --help')
