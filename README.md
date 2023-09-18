@@ -15,7 +15,7 @@ The project includes the following files and folders:
 - `src/files` - Local files shipped with applications
 
 ### Pre-requisites
-- Python 3.11 or greater
+- Python 3.10 or greater
 - Mac or Linux environment
 - .env file in the root directory with correct credentials
 - run `python -r requirement` from the terminal to install dependencies

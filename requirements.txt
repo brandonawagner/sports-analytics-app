@@ -1,4 +1,3 @@
-cmake
 beautifulsoup4
 boto3
 pandas
