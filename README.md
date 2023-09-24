@@ -18,6 +18,7 @@ The project includes the following files and folders:
 ### Analyst Instructions for Using Application
 This application is hosted in an EC2 instance and can be found
 at http://brandonawagner.com:3001
+- I do temporarily disable the database at times so let me know if you are trying to view the application
 
 Create a username and password then you will be able to use the
 Sports Analytics Application database to analyze history college football
