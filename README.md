@@ -14,12 +14,28 @@ The project includes the following files and folders:
 - `src/code` - Code for the application
 - `src/files` - Local files shipped with applications
 
-### Pre-requisites
+
+### Analyst Instructions for Using Application
+This application is hosted in an EC2 instance and can be found
+at http://brandonawagner.com:3001
+
+Create a username and password then you will be able to use the
+Sports Analytics Application database to analyze history college football
+data.
+
+You will want to use the Sports Analytics Application database.
+Reach out to me if you prefer to use a test login instead of
+creating your own.
+
+### Developer Instructions for Updating Database 
+
+#### Pre-requisites
 - Python 3.10 or greater
 - Mac or Linux environment
 - .env file in the root directory with correct credentials
 - run `python -r requirement` from the terminal to install dependencies
-### Run Instructions (from root directory)
+
+_(from project root directory)_
 
 - Full end-to-end process (extract/load into S3, transform/load all Postgres tables)
   - run `python src/code/main.py`
