@@ -28,13 +28,17 @@ You will want to use the Sports Analytics Application database.
 Reach out to me if you prefer to use a test login instead of
 creating your own.
 
-### Developer Instructions for Updating Database 
+### Developer Instructions
 
+
+##### For Starting Application Locally
 #### Pre-requisites
 - Python 3.10 or greater
+- Docker
 - Mac or Linux environment
 - .env file in the root directory with correct credentials
-- run `python -r requirement` from the terminal to install dependencies
+- run `docker compose up` from the terminal to install dependencies
+  - may need to use sudo
 
 _(from project root directory)_
 
