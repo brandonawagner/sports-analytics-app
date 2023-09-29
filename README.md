@@ -19,6 +19,7 @@ The project includes the following files and folders:
 This application is hosted in an EC2 instance and can be found
 at http://brandonawagner.com:3001
 - I do temporarily disable the database at times so let me know if you are trying to view the application
+- See database table schema [here](#sports-analytics-database-schema)
 
 Create a username and password then you will be able to use the
 Sports Analytics Application database to analyze history college football
@@ -33,9 +34,9 @@ creating your own.
 
 ##### For Starting Application Locally
 #### Pre-requisites
-- Python 3.10 or greater
 - Docker
 - Mac or Linux environment
+  - (This has been tested on Mac and Ubuntu)
 - .env file in the root directory with correct credentials
 - run `docker compose up` from the terminal to install dependencies
   - may need to use sudo
@@ -50,7 +51,10 @@ _(from project root directory)_
   - run `python src/code/upload_postgres.py -a`
 - **Only** transform/load a specific table into Postgres
   - run `python src/code/upload_postgres.py -t [TABLE NAME]`
-    - See table names in Postgres Table Schema File (TBA)
+  
+### **Sports Analytics Database Schema**
+sa_prod
+    ![Sports Analytics Database Entity-Relationship Diagram](./src/files/sa_prod_ERD.png)
 
 
 
