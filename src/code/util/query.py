@@ -252,6 +252,7 @@ DROP_SCORING = "DROP TABLE IF EXISTS scoring"
 DROP_PASSING = "DROP TABLE IF EXISTS passing"
 DROP_RECEIVING = "DROP TABLE IF EXISTS receiving"
 DROP_PUNTING = "DROP TABLE IF EXISTS punting"
+DROP_KICKING = "DROP TABLE IF EXISTS kicking"
 
 # DELETION QUERIES-------------------------------
 
@@ -269,7 +270,7 @@ INSERT_CONFERENCE = """INSERT INTO conference (abbrev) VALUES (%s)
                        RETURNING *;                    
 """
 
-INSERT_TEAM = """INSERT INTO team (abbrev) VALUES (%s)
+INSERT_TEAM = """INSERT INTO team (abbrev, entity_name, mascot) VALUES (%s,%s,%s)
                  ON CONFLICT ON CONSTRAINT team_unique_abbrev DO NOTHING
                  RETURNING *;
 """

@@ -1,0 +1,22 @@
+services:
+  metabase:
+    image: metabase/metabase
+    ports:
+      - 3001:3000
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${POSTGRES_METABASE_DATABASE}
+      MB_DB_PORT: ${POSTGRES_PORT}
+      MB_DB_USER: ${POSTGRES_USER}
+      MB_DB_PASS: ${POSTGRES_PASSWORD}
+      MB_DB_HOST: ${POSTGRES_HOST}
+  postgres:
+    image: postgres:15
+    ports:
+      - 5001:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_METABASE_DATABASE}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./pg:/var/lib/postgresql/data

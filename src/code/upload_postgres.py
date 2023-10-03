@@ -1,5 +1,5 @@
 """
- A Lambda function that uploads raw database info into modeled postgres db
+ A function that uploads raw database info into modeled postgres db
 """
 import psycopg2 as p
 import boto3
@@ -8,6 +8,11 @@ import util.query as q
 import time
 import os
 from dotenv import load_dotenv
+import csv
+import argparse
+
+# global variables
+matrix_team_names = []
 
 
 class StatType(Enum):
@@ -228,6 +233,25 @@ def split_percentage(value):
     return value_list
 
 
+def load_team_names():
+    # Define the paths
+    file_path = os.path.abspath('./src/files/team_full_names.csv')
+
+    with open(file_path, 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+
+        for row in csv_reader:
+            # 'row' is a list representing a row of CSV data
+            matrix_team_names.append(row)
+
+
+def get_team_names(abbrev):
+    for row in range(len(matrix_team_names)):
+        if matrix_team_names[row][0] == abbrev:
+            return matrix_team_names[row]
+    return None;
+
+
 def load_base_tables(cur, player, team, conference, year):
     # CONFERENCE
     # Each conference likely inserted from first stat file
@@ -265,14 +289,20 @@ def load_base_tables(cur, player, team, conference, year):
         raise Exception("too many conference rows retrieved, rows: " + len(row_conference))
 
     # TEAM
-    # Each conference likely inserted from first stat file
+    # Each team likely inserted from first stat file
     # so try SELECT before INSERT to reduce DB calls
     cur.execute(q.SELECT_TEAM_BY_ABBREV, (team,))
 
     row_team = cur.fetchall()
     if len(row_team) == 0:
 
-        cur.execute(q.INSERT_TEAM, (team,))
+        matrix_team = get_team_names(team)
+        entity_name = matrix_team[1]
+        mascot = matrix_team[2]
+
+        # TODO remove conference_id from team
+        # TODO Add team_to_conference should have year that team is in that conference
+        cur.execute(q.INSERT_TEAM, (team, entity_name, mascot))
 
         row_team = cur.fetchall()
         if len(row_team) == 0:
@@ -339,8 +369,8 @@ def load_defense(cur, rows):
             solo_tackles = to_int(row['Data'][DefenseColumn.SOLO_TACKLES.value]['VarCharValue'])
             assisted_tackles = to_int(row['Data'][DefenseColumn.ASSISTED_TACKLES.value]['VarCharValue'])
             total_tackles = to_int(row['Data'][DefenseColumn.TOTAL_TACKLES.value]['VarCharValue'])
-            sacks = to_int(row['Data'][DefenseColumn.SACKS.value]['VarCharValue'])
-            sack_yards_lost = to_int(row['Data'][DefenseColumn.SACK_YARDS_LOST.value]['VarCharValue'])
+            sacks = to_float(row['Data'][DefenseColumn.SACKS.value]['VarCharValue'])
+            sack_yards_lost = to_float(row['Data'][DefenseColumn.SACK_YARDS_LOST.value]['VarCharValue'])
             conference = row['Data'][DefenseColumn.CONFERENCE.value]['VarCharValue']
             year = to_int(row['Data'][DefenseColumn.YEAR.value]['VarCharValue'])
 
@@ -754,20 +784,29 @@ def load_kicking(cur, rows):
                                            year))
 
 
-# def lambda_handler(event, context):
 def upload_postgres(event):
-    stat_type = event['stat_type']
+    # load team name decodes
+    load_team_names()
 
     # get environment variables
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     load_dotenv(os.path.abspath('../../.env'))
 
+    # Access environment variables using os.environ
+    aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
+    aws_secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
     # Create an Athena client
-    athena_client = boto3.client('athena')
+    athena_client = boto3.client('athena',
+                                 region_name='us-east-1',
+                                 aws_access_key_id=aws_access_key,
+                                 aws_secret_access_key=aws_secret_key)
 
     # Set the name of the S3 bucket where the query results will be stored
     s3_bucket_query_results = os.environ['S3_BUCKET_QUERY_RESULTS']
 
     # Get the raw database and appropriate table
+    stat_type = event['stat_type']
     raw_database_name = os.environ['ATHENA_RAW_DATABASE_NAME']
     table_name = 'ss-' + stat_type
 
@@ -824,7 +863,7 @@ def upload_postgres(event):
             do_loop = False
             print(f"--- LAST {stat_type} PARTITION COMING NEXT ---")
 
-        print(f"--- Start {stat_type} Partition #{str(row_count)} ---")
+        print(f"--- Start {stat_type} Partition #{row_count} ---")
         part_start = time.time()
 
         # Get the list of rows from the query results
@@ -864,8 +903,8 @@ def upload_postgres(event):
             except KeyError:
                 next_token = None
 
-        end_part = (time.time() - part_start)
-        print(f"--- End Partition #{row_count}. Time:{end_part: .2f} seconds ---")
+        part_end = (time.time() - part_start)
+        print(f"--- End {stat_type} Partition #{row_count} --- Time:{part_end: .2f} seconds")
         row_count = row_count + 1
 
     # Commit the changes
@@ -903,8 +942,29 @@ def load_all_tables():
         upload_postgres(my_event)
 
     print('Upload to Postgres complete')
-    # lambda_handler(my_event, '')
+
+
+def load_one_table(table):
+    my_event = {
+        'stat_type': table
+    }
+    upload_postgres(my_event)
+
+    print(f'Upload of table {table} to Postgres is complete')
 
 
 if __name__ == "__main__":
-    load_all_tables()
+
+    parser = argparse.ArgumentParser(
+        prog='upload_postgres',
+        description='Load S3 data into Postgres')
+    parser.add_argument('-a', '--all', help="load all tables", action="store_true")
+    parser.add_argument('-t', '--table', help="load just one table (and base tables based on this table data")
+
+    args = parser.parse_args()
+    if args.all:
+        load_all_tables()
+    elif args.table is not None:
+        load_one_table(args.table)
+    else:
+        print('Must choose and argument, see upload_postgres.py --help')
