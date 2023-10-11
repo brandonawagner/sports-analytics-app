@@ -51,10 +51,6 @@ _(from project root directory)_
   - run `python src/code/upload_postgres.py -a`
 - **Only** transform/load a specific table into Postgres
   - run `python src/code/upload_postgres.py -t [TABLE NAME]`
-  
-### **Sports Analytics Database Schema**
-sa_prod
-    ![Sports Analytics Database Entity-Relationship Diagram](./src/files/sa_prod_ERD.png)
 
 
 
